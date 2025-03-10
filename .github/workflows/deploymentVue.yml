@@ -1,13 +1,13 @@
 name: Preparant per producció
-run-name: ${{ github.actor }} està pujant l'aplicació a PROD 🚀
+run-name: ${{ github.actor }} està pujant VUE a PROD 🚀
 on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: cd calculadora
       - run: |
+          cd calculadora
           if [ ! -f package-lock.json ]; then
             echo "⚠️ No s'ha trobat 'package-lock.json'. Executant 'npm install' per generar-lo."
             npm install
@@ -18,12 +18,12 @@ jobs:
       - run: cd calculadora && npm run build --if-present
 
       # 👇 Verificar si 'dist' existe
-      - run: ls -la dist || echo "⚠️ Directori 'dist' no existeix!"
+      - run: cd calculadora && ls -la dist || echo "⚠️ Directori 'dist' no existeix!"
 
       - uses: actions/upload-artifact@v4
         with:
           name: app-build
-          path: dist
+          path: calculadora/dist
 
   Pujar-a-produccio-amb-SCP:
     runs-on: ubuntu-latest
