@@ -10,11 +10,11 @@ jobs:
 
       - name: scp a produccio
         run: |
-          echo "${{ secrets.PROD_KEY }}" > ~/prod_key.pem
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/prod_key.pem
           chmod 600 ~/prod_key.pem
           cd ${{ github.workspace }}
           echo "Action desplegant a produccio" > ./web/last_deploy.txt
           date >> ./web/last_deploy.txt
-          scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./web/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}:/home/UsuarioProduccion1/web/actions.daw.inspedralbes.cat/public_html/
+          scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./web/* ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/a23benromdor/web/a23benromdor.daw.inspedralbes.cat/public_html/ghactions-a23benromdor
           
       - run: echo "🍏 This job's status is ${{ job.status }}."
