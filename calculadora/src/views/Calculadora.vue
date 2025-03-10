@@ -1,8 +1,6 @@
 <script setup>
 import { ref } from 'vue';
 
-import Boton from '../components/Boton.vue';
-
 const ultimoBoton = ref('null');
 
 const botonPulsado = (numero) => {
@@ -16,7 +14,7 @@ const botonPulsado = (numero) => {
     <h1>Calculadora</h1>
     <section>
       <div id="botones">
-        <Boton v-for="n in 9" :key="n" :numero="n" @click="botonPulsado(n)" ></Boton> 
+        <button v-for="n in 9" :key="n" :numero="n" @click="botonPulsado(n)">{{ n }}</button>
       </div>
     </section>
     <p>Has clicat al botó: {{ ultimoBoton }}</p>
