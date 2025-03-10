@@ -7,8 +7,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: cd calculadora
-      - run: npm install
-      - run: npm run build --if-present
+      - run: |
+          if [ ! -f package-lock.json ]; then
+            echo "⚠️ No s'ha trobat 'package-lock.json'. Executant 'npm install' per generar-lo."
+            npm install
+          else
+            echo "'package-lock.json' trobat."
+          fi
+      - run: cd calculadora && npm install
+      - run: cd calculadora && npm run build --if-present
 
       # 👇 Verificar si 'dist' existe
       - run: ls -la dist || echo "⚠️ Directori 'dist' no existeix!"
